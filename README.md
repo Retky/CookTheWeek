@@ -31,7 +31,8 @@ Ensure you have the following installed on your machine:
 git clone https://github.com/retky/CookTheWeek-RoR.git
 ```
 2. Associate your Database:
-Update the `config/database.yml` file (lines 28 & 29) with your PostgreSQL database credentials.
+
+**If required** update the `config/database.yml` file (lines 25 & 26) with your PostgreSQL database credentials.
 
 ### 💽 Install
 1. Install project dependencies using Bundler:
