@@ -69,7 +69,7 @@ group :development do
   # gem "spring"
 
   # Use rubocop for code linting
-  gem 'rubocop-rails'
+  gem 'rubocop'
 
   # Prevents bad performance from N+1 queries
   gem 'bullet'
