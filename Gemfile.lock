@@ -311,7 +311,6 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.2)
   rspec-rails
-  rubocop
   rubocop-rails
   selenium-webdriver
   sprockets-rails
