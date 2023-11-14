@@ -13,6 +13,6 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
       - name: Setup RuboCop
-        run: gem install --no-document rubocop
+        run: gem install --no-document rubocop-rails
       - name: Run RuboCop
         run: rubocop --color
