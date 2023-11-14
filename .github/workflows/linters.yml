@@ -1,0 +1,18 @@
+name: Linters
+on:
+  pull_request:
+env:
+  FORCE_COLOR: 1
+jobs:
+  rubocop:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ./.ruby-version
+          bundler-cache: true
+      - name: Setup RuboCop
+        run: gem install --no-document rubocop
+      - name: Run RuboCop
+        run: rubocop --color
