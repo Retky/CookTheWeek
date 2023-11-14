@@ -11,10 +11,13 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+      - name: Check for config file
+        run: |
+          if [ ! -f .rubocop.yml ]; then
+            echo ".rubocop.yml not found"
+            exit 1
+          fi
       - name: Setup RuboCop
         run: gem install rubocop-rails
-      - name: Check gem versions
-        run: gem list
       - name: Run RuboCop
         run: rubocop --color --config .rubocop.yml
