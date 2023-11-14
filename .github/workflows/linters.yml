@@ -14,5 +14,7 @@ jobs:
           bundler-cache: true
       - name: Setup RuboCop
         run: gem install rubocop-rails
+      - name: Check gem versions
+        run: gem list
       - name: Run RuboCop
         run: rubocop --color
