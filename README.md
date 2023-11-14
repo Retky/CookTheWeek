@@ -2,6 +2,7 @@
 
 > Server component of a comprehensive Recipe App. Empowering users to create, organize, and plan their meals, the API facilitates the seamless creation of recipes with detailed ingredient lists. Users can conveniently schedule their weekly or monthly meals, and the system intelligently generates shopping lists based on the selected days. With CookTheWeek-RoR, meal planning becomes a breeze, ensuring a well-prepared and organized approach to culinary delight.
 
+
 ## 🛠️ Build with
 
 [![](https://img.shields.io/badge/Ruby-CC342D.svg?logo=ruby&logoColor=white)](https://www.ruby-lang.org/en/)
