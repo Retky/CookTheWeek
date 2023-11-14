@@ -21,13 +21,15 @@ default: &default
 
 development:
   <<: *default
-  database: cook_the_week_ro_r_development
+  database: cook_the_week_development
+  # username: postgre-user
+  # password: password
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: cook_the_week_ro_r
+  #username: cook_the_week
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -55,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: cook_the_week_ro_r_test
+  database: cook_the_week_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: cook_the_week_ro_r_production
-  username: cook_the_week_ro_r
-  password: <%= ENV["COOK_THE_WEEK_RO_R_DATABASE_PASSWORD"] %>
+  database: cook_the_week_production
+  username: cook_the_week
+  password: <%= ENV["COOK_THE_WEEK_DATABASE_PASSWORD"] %>
