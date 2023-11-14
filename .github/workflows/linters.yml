@@ -17,4 +17,4 @@ jobs:
       - name: Check gem versions
         run: gem list
       - name: Run RuboCop
-        run: rubocop --color
+        run: rubocop --color --config .rubocop.yml
