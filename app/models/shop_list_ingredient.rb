@@ -1,4 +1,3 @@
-class ShopListIngredient < ApplicationRecord
-  belongs_to :ingredient
+class ShopListIngredient < RelatedIngredient
   belongs_to :shop_list
 end
