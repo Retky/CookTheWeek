@@ -4,13 +4,13 @@ class RefUnit < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :abbreviation, presence: true
-  validates :type, presence: true
+  validates :category, presence: true
   validates :unit_factor, presence: true
   validates :unit_reference, presence: true
 
   def sanitize_fields
     self.name = sanitize_strings(self.name)
-    self.type = sanitize_strings(self.type)
+    self.category = sanitize_strings(self.category)
     self.unit_reference = sanitize_strings(self.unit_reference)
   end
 

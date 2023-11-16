@@ -6,7 +6,7 @@
 RefUnit.create!(
   name: 'Liters',
   abbreviation: 'L',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 1.0,
   unit_reference: 'Liters'
 )
@@ -15,7 +15,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Milliliters',
   abbreviation: 'mL',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 0.001, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -24,7 +24,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Fluid Ounces',
   abbreviation: 'fl oz',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 0.0295735, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -33,7 +33,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Cups',
   abbreviation: 'cups',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 0.236588, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -42,7 +42,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Pints',
   abbreviation: 'pts',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 0.473176, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -51,7 +51,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Quarts',
   abbreviation: 'qts',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 0.946353, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -60,7 +60,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Gallons',
   abbreviation: 'gal',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 3.78541, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -69,7 +69,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Teaspoons',
   abbreviation: 'tsp',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 0.00492892, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -78,7 +78,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Tablespoons',
   abbreviation: 'Tbsp',
-  type: 'Volume',
+  category: 'Volume',
   unit_factor: 0.0147868, # Conversion factor to Liters
   unit_reference: 'Liters'
 )
@@ -87,7 +87,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Kilograms',
   abbreviation: 'Kg',
-  type: 'Weight',
+  category: 'Weight',
   unit_factor: 1.0,
   unit_reference: 'Kilograms'
 )
@@ -96,7 +96,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Grams',
   abbreviation: 'g',
-  type: 'Weight',
+  category: 'Weight',
   unit_factor: 0.001, # Conversion factor to Kilograms
   unit_reference: 'Kilograms'
 )
@@ -105,7 +105,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Ounces',
   abbreviation: 'oz',
-  type: 'Weight',
+  category: 'Weight',
   unit_factor: 0.0283495, # Conversion factor to Kilograms
   unit_reference: 'Kilograms'
 )
@@ -114,7 +114,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Pounds',
   abbreviation: 'lb',
-  type: 'Weight',
+  category: 'Weight',
   unit_factor: 0.453592, # Conversion factor to Kilograms
   unit_reference: 'Kilograms'
 )
@@ -123,7 +123,7 @@ RefUnit.create!(
 RefUnit.create!(
   name: 'Piece',
   abbreviation: 'pc',
-  type: 'Unit',
+  category: 'Unit',
   unit_factor: 1.0,
   unit_reference: 'Piece'
 )

@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_171209) do
   create_table "ref_units", force: :cascade do |t|
     t.string "name"
     t.string "abbreviation"
-    t.string "type"
+    t.string "category"
     t.float "unit_factor"
     t.string "unit_reference"
     t.datetime "created_at", null: false
