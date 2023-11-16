@@ -1,0 +1,2 @@
+class RefDifficulty < ApplicationRecord
+end
