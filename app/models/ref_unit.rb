@@ -8,9 +8,9 @@ class RefUnit < ApplicationRecord
   validates :unit_reference, presence: true
 
   def sanitize_fields
-    self.name = sanitize_strings(self.name)
-    self.category = sanitize_strings(self.category)
-    self.unit_reference = sanitize_strings(self.unit_reference)
+    self.name = sanitize_strings(name)
+    self.category = sanitize_strings(category)
+    self.unit_reference = sanitize_strings(unit_reference)
   end
 
   # Capitalize the first letter of each word in a string.
@@ -18,6 +18,6 @@ class RefUnit < ApplicationRecord
     return string if string.blank?
 
     sanitized_string = string.downcase
-    sanitized_string.gsub(/\b([a-z])/) { $1.capitalize }
+    sanitized_string.gsub(/\b([a-z])/) { ::Regexp.last_match(1).capitalize }
   end
 end
