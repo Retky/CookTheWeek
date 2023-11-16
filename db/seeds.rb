@@ -127,3 +127,8 @@ RefUnit.create!(
   unit_factor: 1.0,
   unit_reference: 'Piece'
 )
+
+# Seed data for difficulty levels
+RefDifficulty.create!(name: 'Easy')
+RefDifficulty.create!(name: 'Moderate')
+RefDifficulty.create!(name: 'Difficult')
