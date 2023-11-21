@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Ingredients", type: :request do
     end
 
     it "returns all the ingredients" do
-      parsed_body = JSON.parse(response.body)
+      parsed_body = JSON.parse(response.body)["ingredients"]
 
       expect(parsed_body.length).to eq(3)
       expect(parsed_body[0]["name"]).to eq("Milk")
