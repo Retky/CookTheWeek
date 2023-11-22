@@ -6,8 +6,6 @@ include Devise::JWT::RevocationStrategies::JTIMatcher
   has_many :recipes, dependent: :destroy
   has_many :shop_lists, dependent: :destroy
   has_many :meals, dependent: :destroy
-  has_many :user_ingredients, dependent: :destroy
-  has_many :ingredients, through: :user_ingredients
 
   validates :username, presence: true, uniqueness: true, length: { maximum: 21 }
   validates :email, presence: true, uniqueness: true, length: { maximum: 255 },
