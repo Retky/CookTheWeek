@@ -7,7 +7,7 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find(params[:id]).includes(:recipe_ingredients, :recipe_steps)
     render json: @recipe
   end
 
@@ -47,5 +47,5 @@ class Api::V1::RecipesController < ApplicationController
         unit: ingredient_params[:unit]
       )
     end
-  end  
+  end
 end
