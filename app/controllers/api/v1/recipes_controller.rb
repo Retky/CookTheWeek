@@ -23,7 +23,13 @@ class Api::V1::RecipesController < ApplicationController
         raise ActiveRecord::Rollback
       end
     end
-  end  
+  end
+
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy
+    render json: { message: 'Recipe deleted' }
+  end
 
   private
 
