@@ -23,4 +23,18 @@ class Recipe < ApplicationRecord
                                 unit: ingredient_params[:unit])
     end
   end
+
+  def full_recipe
+    recipe = as_json
+    recipe['ingredients'] = recipe_ingredients.map do |recipe_ingredient|
+      {
+        id: recipe_ingredient.id,
+        quantity: recipe_ingredient.quantity,
+        unit: recipe_ingredient.unit,
+        ingredient_name: recipe_ingredient.ingredient.name
+      }
+    end
+    recipe['steps'] = recipe_steps.as_json
+    recipe
+  end  
 end
