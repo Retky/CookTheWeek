@@ -12,10 +12,6 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :recipe_ingredients, :recipe_steps
 
-  def define_steps(steps)
-    recipe_steps.create(steps)
-  end
-
   def define_ingredients(ingredients)
     ingredients.each do |ingredient_params|
       ingredient = Ingredient.find_or_create_by(name: ingredient_params[:name])
