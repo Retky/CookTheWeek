@@ -30,7 +30,8 @@ class Api::V1::RecipesController < ApplicationController
 
     Recipe.transaction do
       if @recipe.update(recipe_params)
-        update_recipe_ingredients(params[:recipe][:recipe_ingredients_attributes], @recipe)
+        update_or_create_recipe_steps(params[:recipe][:recipe_steps_attributes], @recipe)
+        update_or_create_recipe_ingredients(params[:recipe][:recipe_ingredients_attributes], @recipe)
         render json: @recipe
       else
         render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
@@ -49,8 +50,7 @@ class Api::V1::RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(
-      :name, :portions, :preparation_time, :cooking_time, :public,
-      recipe_steps_attributes: %i[step_number instructions]
+      :name, :portions, :preparation_time, :cooking_time, :public
     )
   end
 
@@ -69,26 +69,51 @@ class Api::V1::RecipesController < ApplicationController
     end
   end
 
-  def update_recipe_ingredients(ingredients, recipe)
+  def update_or_create_recipe_ingredients(ingredients, recipe)
     return if ingredients.blank?
 
     ingredients.each do |ingredient_params|
-      recipe_ingredient = RecipeIngredient.find_or_initialize_by(id: ingredient_params[:id])
-
-      if ingredient_params[:_destroy] == '1' # Check if marked for deletion
-        recipe_ingredient.destroy if recipe_ingredient.persisted?
-        next
-      end
+      recipe_ingredient = if ingredient_params[:id].present?
+                            RecipeIngredient.find_by(id: ingredient_params[:id])
+                          else
+                            RecipeIngredient.new
+                          end
 
       ingredient = Ingredient.find_or_create_by(name: ingredient_params[:name])
       next unless ingredient
 
-      # Update the recipe ingredient attributes
-      recipe_ingredient.update(
-        ingredient: ingredient,
-        quantity: ingredient_params[:quantity],
-        unit: ingredient_params[:unit]
-      )
+      if recipe_ingredient.persisted? && recipe_ingredient.ingredient.name == ingredient_params[:name]
+        recipe_ingredient.update(
+          quantity: ingredient_params[:quantity],
+          unit: ingredient_params[:unit]
+        )
+      else
+        recipe.recipe_ingredients.create(
+          ingredient:,
+          quantity: ingredient_params[:quantity],
+          unit: ingredient_params[:unit]
+        )
+      end
+    end
+  end
+
+  def update_or_create_recipe_steps(steps, recipe)
+    return if steps.blank?
+
+    steps.each do |step_params|
+      recipe_step = (RecipeStep.find_by(id: step_params[:id]) if step_params[:id].present?)
+
+      if recipe_step.present?
+        recipe_step.update(
+          step_number: step_params[:step_number],
+          instructions: step_params[:instructions]
+        )
+      else
+        recipe.recipe_steps.create(
+          step_number: step_params[:step_number],
+          instructions: step_params[:instructions]
+        )
+      end
     end
   end
 end
