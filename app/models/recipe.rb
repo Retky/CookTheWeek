@@ -20,6 +20,12 @@ class Recipe < ApplicationRecord
     end
   end
 
+  def define_steps(steps)
+    steps.each do |step_params|
+      recipe_steps.create(step_number: step_params[:step_number], instructions: step_params[:instructions])
+    end
+  end
+
   def full_recipe
     recipe = as_json
     recipe['recipe_ingredients'] = recipe_ingredients.map do |recipe_ingredient|
