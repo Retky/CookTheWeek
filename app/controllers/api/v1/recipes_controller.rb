@@ -17,6 +17,7 @@ class Api::V1::RecipesController < ApplicationController
     Recipe.transaction do
       if @recipe.save
         @recipe.define_ingredients(params[:recipe][:recipe_ingredients_attributes])
+        @recipe.define_steps(params[:recipe][:recipe_steps_attributes])
         render json: @recipe
       else
         render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
@@ -73,16 +74,12 @@ class Api::V1::RecipesController < ApplicationController
     return if ingredients.blank?
 
     ingredients.each do |ingredient_params|
-      recipe_ingredient = if ingredient_params[:id].present?
-                            RecipeIngredient.find_by(id: ingredient_params[:id])
-                          else
-                            RecipeIngredient.new
-                          end
+      recipe_ingredient = RecipeIngredient.find_by(id: ingredient_params[:id]) if ingredient_params[:id].present?
 
       ingredient = Ingredient.find_or_create_by(name: ingredient_params[:name])
       next unless ingredient
 
-      if recipe_ingredient.persisted? && recipe_ingredient.ingredient.name == ingredient_params[:name]
+      if recipe_ingredient.present? && recipe_ingredient.ingredient.name == ingredient_params[:name]
         recipe_ingredient.update(
           quantity: ingredient_params[:quantity],
           unit: ingredient_params[:unit]
