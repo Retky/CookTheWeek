@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_005513) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_22_003537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,15 +119,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_005513) do
     t.index ["user_id"], name: "index_shop_lists_on_user_id"
   end
 
-  create_table "user_ingredients", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "ingredient_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ingredient_id"], name: "index_user_ingredients_on_ingredient_id"
-    t.index ["user_id"], name: "index_user_ingredients_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -137,7 +128,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_005513) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "jti", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
@@ -153,6 +146,4 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_005513) do
   add_foreign_key "shop_list_meals", "meals"
   add_foreign_key "shop_list_meals", "shop_lists"
   add_foreign_key "shop_lists", "users"
-  add_foreign_key "user_ingredients", "ingredients"
-  add_foreign_key "user_ingredients", "users"
 end

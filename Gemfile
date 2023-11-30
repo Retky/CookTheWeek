@@ -46,6 +46,8 @@ gem 'bootsnap', require: false
 
 # Gem for authentication
 gem 'devise'
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
 
 # Gem for authorization
 gem 'cancancan'
@@ -56,6 +58,9 @@ group :development, :test do
 
   # Unit testing framework
   gem 'rspec-rails'
+
+  # CORS support
+  gem 'rack-cors'
 end
 
 group :development do

@@ -1,4 +1,5 @@
 class RelatedIngredient < ApplicationRecord
+  self.abstract_class = true
   belongs_to :ingredient
 
   validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 0 }
