@@ -46,11 +46,7 @@ gem 'bootsnap', require: false
 
 # Gem for authentication
 gem 'devise'
-gem 'devise-jwt'
-gem 'jsonapi-serializer'
-
-# Gem for authorization
-gem 'cancancan'
+gem 'devise-api'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
