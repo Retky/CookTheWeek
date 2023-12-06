@@ -1,8 +1,10 @@
 class Api::V1::RecipesController < ApplicationController
-  # before_action authenticate_user!
+  skip_before_action :verify_authenticity_token, raise: false
+  before_action :authenticate_devise_api_token!
 
   def index
-    @recipes = current_user.recipes
+    @user = current_devise_api_token.resource_owner
+    @recipes = @user.recipes
     render json: @recipes
   end
 
@@ -12,7 +14,8 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def create
-    @recipe = current_user.recipes.build(recipe_params)
+    @user = current_devise_api_token.resource_owner
+    @recipe = @user.recipes.build(recipe_params)
 
     Recipe.transaction do
       if @recipe.save

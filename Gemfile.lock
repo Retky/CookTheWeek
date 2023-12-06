@@ -88,7 +88,6 @@ GEM
     bullet (7.1.3)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
-    cancancan (3.5.0)
     capybara (3.39.2)
       addressable
       matrix
@@ -111,20 +110,37 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-jwt (0.11.0)
-      devise (~> 4.0)
-      warden-jwt_auth (~> 0.8)
+    devise-api (0.1.3)
+      devise (>= 4.7.2)
+      dry-configurable (~> 1.0, >= 1.0.1)
+      dry-initializer (>= 3.1.1)
+      dry-monads (>= 1.6.0)
+      dry-types (>= 1.7.0)
+      rails (>= 6.0.0)
     diff-lcs (1.5.0)
     drb (2.2.0)
       ruby2_keywords
-    dry-auto_inject (1.0.1)
-      dry-core (~> 1.0)
-      zeitwerk (~> 2.6)
     dry-configurable (1.1.0)
       dry-core (~> 1.0, < 2)
       zeitwerk (~> 2.6)
     dry-core (1.0.1)
       concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
+    dry-initializer (3.1.1)
+    dry-logic (1.5.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-monads (1.6.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.1)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
       zeitwerk (~> 2.6)
     erubi (1.12.0)
     globalid (1.2.1)
@@ -143,9 +159,6 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.6.3)
-    jsonapi-serializer (2.2.0)
-      activesupport (>= 4.2)
-    jwt (2.7.1)
     language_server-protocol (3.17.0.3)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -298,11 +311,6 @@ GEM
     uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
-    warden-jwt_auth (0.8.0)
-      dry-auto_inject (>= 0.8, < 2)
-      dry-configurable (>= 0.13, < 2)
-      jwt (~> 2.1)
-      warden (~> 1.2)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -323,14 +331,12 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bullet
-  cancancan
   capybara
   debug
   devise
-  devise-jwt
+  devise-api
   importmap-rails
   jbuilder
-  jsonapi-serializer
   pg (~> 1.1)
   puma (>= 5.0)
   rack-cors
