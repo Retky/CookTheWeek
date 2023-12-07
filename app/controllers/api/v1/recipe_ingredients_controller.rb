@@ -5,11 +5,11 @@ class Api::V1::RecipeIngredientsController < ApplicationController
   def destroy
     @user = current_devise_api_token.resource_owner
     @recipe_ingredient = RecipeIngredient.find(params[:id])
-    if @recipe_ingredient.recipe.user != @user
-      render json: { errors: 'You are not allowed to delete this recipe ingredient' }, status: :unprocessable_entity
-    else
+    if @recipe_ingredient.recipe.user == @user
       @recipe_ingredient.destroy
       render json: { message: 'Recipe ingredient deleted' }
+    else
+      render json: { errors: 'You are not allowed to delete this recipe ingredient' }, status: :unprocessable_entity
     end
   end
 end
