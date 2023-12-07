@@ -49,6 +49,7 @@ RSpec.describe User, type: :model do
       expect(@user).to be_valid
     end
   end
+
   describe 'Update' do
     it 'should update a user' do
       @user.save
@@ -69,12 +70,28 @@ RSpec.describe User, type: :model do
       expect(User.first.email).to eq('test@test.com')
     end
   end
-  describe 'Delete' do
-    it 'should delete a user' do
+
+  describe 'Destroy' do
+    it 'should destroy a user' do
       @user.save
       expect(User.count).to eq(1)
-      User.first.delete
+      User.first.destroy
       expect(User.count).to eq(0)
+    end
+  end
+
+  describe 'Associations' do
+    it 'should have many recipes' do
+      @user.save
+      expect(@user.recipes).to eq([])
+    end
+    it 'should have many shop_lists' do
+      @user.save
+      expect(@user.shop_lists).to eq([])
+    end
+    it 'should have many meals' do
+      @user.save
+      expect(@user.meals).to eq([])
     end
   end
 end
