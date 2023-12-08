@@ -43,5 +43,13 @@ RSpec.describe 'Api::V1::RecipeIngredients', type: :request do
              headers: { 'Authorization' => @token }
       expect(response).to have_http_status(:success)
     end
+    it 'returns http unprocessable_entity when trying to delete a recipe ingredient from another user' do
+      post '/users/tokens/sign_up',
+           params: { email: 'other@test.com', password: 'password', password_confirmation: 'password' }
+      other_token = response.parsed_body['token']
+      delete "/api/v1/users/#{@user_id}/recipe_ingredients/#{@recipe_ingredient_id}",
+              headers: { 'Authorization' => other_token }
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
   end
 end
