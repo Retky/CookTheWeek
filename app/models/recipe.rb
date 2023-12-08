@@ -38,7 +38,7 @@ class Recipe < ApplicationRecord
         updated_at: recipe_ingredient.updated_at
       }
     end
-    recipe['steps'] = recipe_steps
+    recipe['recipe_steps'] = recipe_steps
     recipe.as_json
   end
 end
