@@ -10,15 +10,15 @@ RSpec.describe 'Api::V1::Ingredients', type: :request do
   end
 
   describe 'GET /index' do
-    it 'returns success status' do
+    it 'should returns success status' do
       expect(response).to have_http_status(:success)
     end
 
-    it 'returns a proper JSON' do
+    it 'should returns a proper JSON' do
       expect(response.content_type).to include('application/json')
     end
 
-    it 'returns all the ingredients' do
+    it 'should returns all the ingredients' do
       parsed_body = response.parsed_body['ingredients']
 
       expect(parsed_body.length).to eq(3)

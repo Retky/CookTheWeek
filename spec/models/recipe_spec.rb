@@ -211,8 +211,8 @@ RSpec.describe Recipe, type: :model do
       expect(@recipe_ingredient).to have_key('updated_at')
     end
     it 'should have the correct Recipe Step attributes' do
-      expect(@full_recipe['steps'].count).to eq(1)
-      @recipe_step = @full_recipe['steps'].first
+      expect(@full_recipe['recipe_steps'].count).to eq(1)
+      @recipe_step = @full_recipe['recipe_steps'].first
 
       expect(@recipe_step['instructions']).to eq(@recipe.recipe_steps.first.instructions)
       expect(@recipe_step['step_number']).to eq(@recipe.recipe_steps.first.step_number)

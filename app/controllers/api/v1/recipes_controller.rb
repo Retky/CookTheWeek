@@ -21,7 +21,7 @@ class Api::V1::RecipesController < ApplicationController
       if @recipe.save
         @recipe.define_ingredients(params[:recipe][:recipe_ingredients_attributes])
         @recipe.define_steps(params[:recipe][:recipe_steps_attributes])
-        render json: @recipe
+        render json: @recipe.full_recipe
       else
         render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         raise ActiveRecord::Rollback
