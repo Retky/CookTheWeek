@@ -177,4 +177,95 @@ RSpec.describe Recipe, type: :model do
       expect(@recipe.user).to eq(@user)
     end
   end
+
+  # Custom Methods
+  describe 'Full Recipe Method' do
+    before do
+      @recipe.save
+      @ingredient = Ingredient.create(name: 'test ingredient')
+      @recipe.recipe_ingredients.create(ingredient: @ingredient, quantity: 1, unit: 'test unit')
+      @recipe.recipe_steps.create(step_number: 1, instructions: 'test instructions')
+      @full_recipe = @recipe.full_recipe
+    end
+    it 'should have the correct Recipe attributes' do
+      expect(@full_recipe['id']).to eq(@recipe.id)
+      expect(@full_recipe['user_id']).to eq(@recipe.user_id)
+      expect(@full_recipe['name']).to eq(@recipe.name)
+      expect(@full_recipe['difficulty']).to eq(@recipe.difficulty)
+      expect(@full_recipe['description']).to eq(@recipe.description)
+      expect(@full_recipe['portions']).to eq(@recipe.portions)
+      expect(@full_recipe['preparation_time']).to eq(@recipe.preparation_time)
+      expect(@full_recipe['cooking_time']).to eq(@recipe.cooking_time)
+      expect(@full_recipe['public']).to eq(@recipe.public)
+      expect(@full_recipe['image_url']).to eq(@recipe.image_url)
+      expect(@full_recipe['tips']).to eq(@recipe.tips)
+      expect(@full_recipe).to have_key('created_at')
+      expect(@full_recipe).to have_key('updated_at')
+    end
+    it 'should have the correct Recipe Ingredient attributes' do
+      expect(@full_recipe['recipe_ingredients'].count).to eq(1)
+      @recipe_ingredient = @full_recipe['recipe_ingredients'].first
+
+      expect(@recipe_ingredient['quantity']).to eq(@recipe.recipe_ingredients.first.quantity)
+      expect(@recipe_ingredient['unit']).to eq(@recipe.recipe_ingredients.first.unit)
+      expect(@recipe_ingredient['name']).to eq(@recipe.recipe_ingredients.first.ingredient.name)
+      expect(@recipe_ingredient).to have_key('id')
+      expect(@recipe_ingredient).to have_key('created_at')
+      expect(@recipe_ingredient).to have_key('updated_at')
+    end
+    it 'should have the correct Recipe Step attributes' do
+      expect(@full_recipe['steps'].count).to eq(1)
+      @recipe_step = @full_recipe['steps'].first
+
+      expect(@recipe_step['instructions']).to eq(@recipe.recipe_steps.first.instructions)
+      expect(@recipe_step['step_number']).to eq(@recipe.recipe_steps.first.step_number)
+      expect(@recipe_step['id']).to eq(@recipe.recipe_steps.first.id)
+      expect(@recipe_step).to have_key('created_at')
+      expect(@recipe_step).to have_key('updated_at')
+    end
+  end
+
+  describe 'Define Ingredients Method' do
+    before do
+      @recipe.save
+      @recipe.define_ingredients([{ name: 'test ingredient', quantity: 1, unit: 'test unit' }])
+    end
+
+    it 'should create the ingredient' do
+      expect(Ingredient.count).to eq(1)
+      expect(Ingredient.first.name).to eq('Test ingredient')
+    end
+    it 'should NOT create the ingredient if it already exists' do
+      @recipe.define_ingredients([{ name: 'test ingredient', quantity: 1, unit: 'test unit' }])
+      expect(Ingredient.count).to eq(1)
+      expect(Ingredient.first.name).to eq('Test ingredient')
+    end
+    it 'should create the recipe_ingredient' do
+      expect(RecipeIngredient.count).to eq(1)
+      expect(RecipeIngredient.first.quantity).to eq(1)
+      expect(RecipeIngredient.first.unit).to eq('test unit')
+      expect(RecipeIngredient.first.ingredient).to eq(Ingredient.first)
+      expect(RecipeIngredient.first.recipe).to eq(@recipe)
+
+      expect(@recipe.ingredients.count).to eq(1)
+      expect(@recipe.ingredients.first).to eq(Ingredient.first)
+    end
+  end
+
+  describe 'Define Steps Method' do
+    before do
+      @recipe.save
+      @recipe.define_steps([{ step_number: 1, instructions: 'test instructions' }])
+    end
+
+    it 'should create the recipe_step' do
+      expect(RecipeStep.count).to eq(1)
+      expect(RecipeStep.first.step_number).to eq(1)
+      expect(RecipeStep.first.instructions).to eq('test instructions')
+      expect(RecipeStep.first.recipe).to eq(@recipe)
+
+      expect(@recipe.recipe_steps.count).to eq(1)
+      expect(@recipe.recipe_steps.first).to eq(RecipeStep.first)
+    end
+  end
 end
