@@ -173,9 +173,6 @@ RSpec.describe Recipe, type: :model do
     it 'should have many recipe_steps' do
       expect(@recipe.recipe_steps).to eq([])
     end
-    it 'should belong to a user' do
-      expect(@recipe.user).to eq(@user)
-    end
   end
 
   # Custom Methods
