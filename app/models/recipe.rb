@@ -33,10 +33,12 @@ class Recipe < ApplicationRecord
         id: recipe_ingredient.id,
         quantity: recipe_ingredient.quantity,
         unit: recipe_ingredient.unit,
-        name: recipe_ingredient.ingredient.name
+        name: recipe_ingredient.ingredient.name,
+        created_at: recipe_ingredient.created_at,
+        updated_at: recipe_ingredient.updated_at
       }
     end
-    recipe['steps'] = recipe_steps.as_json
-    recipe
+    recipe['recipe_steps'] = recipe_steps
+    recipe.as_json
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
-    @user = User.new(email: 'test@test.com', password: 'password', username: 'tester')
+    @user = User.new(email: 'test@test.com', password: 'password')
   end
 
   describe 'Creation' do
@@ -14,10 +14,6 @@ RSpec.describe User, type: :model do
     end
     it 'should NOT create a user without an email' do
       @user.email = ''
-      expect(@user).to_not be_valid
-    end
-    it 'should NOT create a user without a username' do
-      @user.username = ''
       expect(@user).to_not be_valid
     end
     it 'should NOT create a user without a password' do
@@ -33,26 +29,14 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Validations' do
-    it 'should NOT be valid with a username longer than 21 characters' do
-      @user.username = 'testertestertestertestertestertestertestertestertestertestertestertester'
-      expect(@user).to_not be_valid
-    end
-    it 'should have a unique username' do
-      @user.save
-      @user2 = @user.dup
-      @user2.email = 'test2@test.com'
-      expect(@user2).to_not be_valid
-    end
     it 'should have a unique email' do
       @user.save
       @user2 = @user.dup
-      @user2.username = 'test2'
       expect(@user2).to_not be_valid
     end
     it 'should NOT invalidate a user with a duplicated password' do
       @user.save
       @user2 = @user.dup
-      @user2.username = 'test2'
       @user2.email = 'test2@test.com'
       expect(@user2).to be_valid
     end
@@ -65,49 +49,49 @@ RSpec.describe User, type: :model do
       expect(@user).to be_valid
     end
   end
+
   describe 'Update' do
     it 'should update a user' do
       @user.save
-      @user.update(username: 'tester2')
-      expect(User.first.username).to eq('tester2')
       @user.update(email: 'test2@test.com')
       expect(User.first.email).to eq('test2@test.com')
-    end
-    it 'should NOT update a user with an invalid username' do
-      @user.save
-      @user.update(username: '')
-      expect(User.first.username).to eq('tester')
     end
     it 'should NOT update a user with an invalid email' do
       @user.save
       @user.update(email: '')
       expect(User.first.email).to eq('test@test.com')
     end
-    it 'should NOT update a user with a duplicated username' do
-      @user.save
-      @user2 = @user.dup
-      @user2.username = 'tester2'
-      @user2.email = 'test2@test.com'
-      @user2.save
-      @user.update(username: 'tester2')
-      expect(User.first.username).to eq('tester')
-    end
     it 'should NOT update a user with a duplicated email' do
       @user.save
       @user2 = @user.dup
-      @user2.username = 'tester2'
       @user2.email = 'test2@test.com'
       @user2.save
       @user.update(email: 'test2@test.com')
       expect(User.first.email).to eq('test@test.com')
     end
   end
-  describe 'Delete' do
-    it 'should delete a user' do
+
+  describe 'Destroy' do
+    it 'should destroy a user' do
       @user.save
       expect(User.count).to eq(1)
-      User.first.delete
+      User.first.destroy
       expect(User.count).to eq(0)
+    end
+  end
+
+  describe 'Associations' do
+    it 'should have many recipes' do
+      @user.save
+      expect(@user.recipes).to eq([])
+    end
+    it 'should have many shop_lists' do
+      @user.save
+      expect(@user.shop_lists).to eq([])
+    end
+    it 'should have many meals' do
+      @user.save
+      expect(@user.meals).to eq([])
     end
   end
 end
