@@ -1,0 +1,22 @@
+name: Specs
+on:
+  pull_request:
+env:
+  FORCE_COLOR: 1
+jobs:
+  rspecs:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+      - name: Cache Bundler dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+      - name: Run RSpecs
+        run: bundle exec rspec
