@@ -5,7 +5,7 @@ class Api::V1::RecipesController < ApplicationController
   def index
     @user = current_devise_api_token.resource_owner
     @recipes = @user.recipes
-    render json: @recipes
+    render json: @recipes.map(&:full_recipe)
   end
 
   def show
