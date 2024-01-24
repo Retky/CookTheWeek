@@ -18,6 +18,22 @@ class Api::V1::MealsController < ApplicationController
     end
   end
 
+  def update
+    @meal = Meal.find(params[:id])
+    
+    if @meal.update(meal_params)
+      render json: @meal
+    else
+      render json: { errors: @meal.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @meal = Meal.find(params[:id])
+    @meal.destroy
+    render json: { message: 'Meal deleted' }
+  end
+
   private
 
   def meal_params
