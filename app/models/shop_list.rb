@@ -5,7 +5,7 @@ class ShopList < ApplicationRecord
   has_many :shop_list_meals, dependent: :destroy
   has_many :meals, through: :shop_list_meals
 
-  def all_ingredients
+  def return_data
     recipe_ingredients = self.meals.map(&:recipe_id).map { |id| RecipeIngredient.where(recipe_id: id) }.flatten
   
     grouped_ingredients = recipe_ingredients.group_by { |ingredient| [ingredient.ingredient_id, ingredient.unit] }
@@ -18,7 +18,11 @@ class ShopList < ApplicationRecord
         quantity: ingredients.sum(&:quantity)
       }
     end
-  
-    return summed_ingredients
+
+    return {
+      id: self.id,
+      ingredients: summed_ingredients,
+      meals: self.meals
+    }
   end  
 end

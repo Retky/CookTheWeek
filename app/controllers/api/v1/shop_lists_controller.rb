@@ -5,12 +5,12 @@ class Api::V1::ShopListsController < ApplicationController
   def index
     @user = current_devise_api_token.resource_owner
     @shop_lists = @user.shop_lists
-    render json: @shop_lists
+    render json: @shop_lists.map(&:return_data)
   end
 
   def show
     @shop_list = ShopList.find(params[:id])
-    render json: @shop_list.all_ingredients
+    render json: @shop_list.return_data
   end
 
   def create
@@ -23,7 +23,7 @@ class Api::V1::ShopListsController < ApplicationController
           meal = Meal.find_by(id: meal_id)
           @shop_list.meals << meal unless @shop_list.meals.include?(meal) if meal.present?
         end
-        render json: @shop_list.all_ingredients
+        render json: @shop_list.return_data
       else
         render json: { errors: @shop_list.errors.full_messages }, status: :unprocessable_entity
         raise ActiveRecord::Rollback
