@@ -20,7 +20,7 @@ class Api::V1::MealsController < ApplicationController
 
   def update
     @meal = Meal.find(params[:id])
-    
+
     if @meal.update(meal_params)
       render json: @meal
     else
@@ -39,6 +39,6 @@ class Api::V1::MealsController < ApplicationController
   def meal_params
     params.require(:meal).permit(
       :name, :day, :portions, :recipe_id
-      )
+    )
   end
 end

@@ -16,12 +16,12 @@ class Api::V1::ShopListsController < ApplicationController
   def create
     @user = current_devise_api_token.resource_owner
     @shop_list = @user.shop_lists.build(shop_list_params)
-  
+
     ShopList.transaction do
       if @shop_list.save
         params[:shop_list][:meal_ids].each do |meal_id|
           meal = Meal.find_by(id: meal_id)
-          @shop_list.meals << meal unless @shop_list.meals.include?(meal) if meal.present?
+          @shop_list.meals << meal if meal.present? && @shop_list.meals.exclude?(meal)
         end
         render json: @shop_list.return_data
       else
@@ -31,8 +31,7 @@ class Api::V1::ShopListsController < ApplicationController
     end
   end
 
-  def update
-  end
+  def update; end
 
   def destroy
     @shop_list = ShopList.find(params[:id])
@@ -44,7 +43,7 @@ class Api::V1::ShopListsController < ApplicationController
 
   def shop_list_params
     params.require(:shop_list).permit(
-      :meal_ids => []
+      meal_ids: []
     )
   end
 end
